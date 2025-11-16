@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="JapaneseStudyTool.Core\Interface\" />
+    <Folder Include="JapaneseStudyTool.Core\NewFolder\" />
+  </ItemGroup>
+
 </Project>

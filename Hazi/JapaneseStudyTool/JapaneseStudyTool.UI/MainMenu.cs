@@ -2,7 +2,7 @@
 
 namespace JapaneseStudyTool.JapaneseStudyTool.UI
 {
-    internal class MainMenu
+    internal sealed class MainMenu
     {
         public static void RunMainMenu()
         {

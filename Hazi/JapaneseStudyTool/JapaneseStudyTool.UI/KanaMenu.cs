@@ -1,6 +1,6 @@
 ﻿namespace JapaneseStudyTool.JapaneseStudyTool.UI
 {
-    internal class KanaMenu
+    internal sealed class KanaMenu
     {
         public static void RunKanaMenu()
         {
