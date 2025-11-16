@@ -4,7 +4,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
 {
     internal sealed class VocabMenu
     {
-        public static void RunVocabMenu()
+        internal static void RunVocabMenu()
         {
             Console.Clear();
 

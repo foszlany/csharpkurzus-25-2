@@ -9,10 +9,10 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Service
         private readonly DifficultyLevel difficultyLevel;
         private readonly List<KanaEntry> kanas;
 
-        public RandomKanaService(KanaType kanaType, DifficultyLevel difficultyLevel)
+        public RandomKanaService(DifficultyLevel difficultyLevel, KanaType kanaType)
         {
-            kanas = KanaLoader.LoadKana(kanaType);
             this.difficultyLevel = difficultyLevel;
+            kanas = KanaLoader.LoadKana(kanaType);
 
             switch (difficultyLevel)
             {

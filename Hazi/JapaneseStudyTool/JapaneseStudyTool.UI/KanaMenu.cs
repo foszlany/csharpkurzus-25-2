@@ -1,11 +1,10 @@
 ﻿using JapaneseStudyTool.JapaneseStudyTool.Core.Enum;
-using JapaneseStudyTool.JapaneseStudyTool.Core.Service;
 
 namespace JapaneseStudyTool.JapaneseStudyTool.UI
 {
     internal sealed class KanaMenu
     {
-        public static void RunKanaMenu()
+        internal static void RunKanaMenu()
         {
             Console.Clear();
 
@@ -24,7 +23,30 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
                 Console.Write(">");
                 string expression = Console.ReadLine() ?? string.Empty;
 
-                throw new NotImplementedException();
+                string[] args = expression.Split(" ");
+                if(args.Length == 2)
+                {
+                    if (Enum.TryParse<DifficultyLevel>(args[0], ignoreCase: true, out var difficultyLevel) &&
+                        Enum.TryParse<KanaType>(args[1], ignoreCase: true, out var kanaType))
+                    {
+                        KanaPracticeUI.RunKanaPracticeUI(difficultyLevel, kanaType);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Invalid input.\n");
+                    }
+                }
+                else if(args.Length == 1 && args[0].ToLower() == "exit")
+                {
+                    Console.Clear();
+                    return;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid input.\n");
+                }
             }
         }
     }

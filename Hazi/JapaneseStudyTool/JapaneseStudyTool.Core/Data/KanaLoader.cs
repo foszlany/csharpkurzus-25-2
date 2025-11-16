@@ -8,7 +8,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
     {
         private static readonly string hiraganaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "hiragana.json");
         private static readonly string katakanaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "katakana.json");
-        private static JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        private static readonly JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
         public static List<KanaEntry> LoadKana(KanaType type)
         {

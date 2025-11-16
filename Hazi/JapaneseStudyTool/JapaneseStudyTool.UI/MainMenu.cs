@@ -4,7 +4,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
 {
     internal sealed class MainMenu
     {
-        public static void RunMainMenu()
+        internal static void RunMainMenu()
         {
             Console.Clear();
 
