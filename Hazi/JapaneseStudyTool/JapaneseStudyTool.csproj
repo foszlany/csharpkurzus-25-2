@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="JapaneseStudyTool.Core\Interface\" />
-    <Folder Include="JapaneseStudyTool.Core\NewFolder\" />
+    <Folder Include="JapaneseStudyTool.Core\Service\" />
   </ItemGroup>
 
 </Project>
