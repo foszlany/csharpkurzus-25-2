@@ -10,21 +10,25 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
         private static readonly string katakanaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "katakana.json");
         private static readonly JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-        public static List<KanaEntry> LoadKana(KanaType type)
+        public static KanaSet LoadKana(KanaType type)
         {
 
             switch (type)
             {
                 case KanaType.Hiragana:
-                    return LoadFromFile(hiraganaPath);
+                    return new KanaSet { Hiragana = LoadFromFile(hiraganaPath) };
 
                 case KanaType.Katakana:
-                    return LoadFromFile(katakanaPath);
+                    return new KanaSet { Katakana = LoadFromFile(katakanaPath) };
 
                 case KanaType.All:
                     var hiragana = LoadFromFile(hiraganaPath);
                     var katakana = LoadFromFile(katakanaPath);
-                    return hiragana.Concat(katakana).ToList();
+                    return new KanaSet
+                    {
+                        Hiragana = LoadFromFile(hiraganaPath),
+                        Katakana = LoadFromFile(katakanaPath)
+                    };
 
                 default:
                     throw new ArgumentException("File does not exist for KanaType: " + type);
