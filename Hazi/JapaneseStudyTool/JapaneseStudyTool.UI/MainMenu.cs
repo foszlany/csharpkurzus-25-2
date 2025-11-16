@@ -29,7 +29,8 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
                             break;
 
                         case MainMenuMode.VocabularyPractice:
-                            throw new NotImplementedException();
+                            VocabMenu.RunVocabMenu();
+                            break;
 
                         case MainMenuMode.Exit:
                             Environment.Exit(0);
