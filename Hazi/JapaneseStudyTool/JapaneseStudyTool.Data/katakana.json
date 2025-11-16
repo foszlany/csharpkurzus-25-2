@@ -136,7 +136,7 @@
   },
   {
     "kana": "フ",
-    "romaji": "hu",
+    "romaji": "fu",
     "type": "gojuuon"
   },
   {
@@ -353,11 +353,6 @@
     "kana": "ポ",
     "romaji": "po",
     "type": "handakuon"
-  },
-  {
-    "kana": "ッ",
-    "romaji": "(pause)",
-    "type": "sokuon"
   },
   {
     "kana": "キャ",

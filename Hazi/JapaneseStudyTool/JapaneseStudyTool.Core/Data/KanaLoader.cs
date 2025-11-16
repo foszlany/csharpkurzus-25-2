@@ -8,6 +8,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
     {
         private static readonly string hiraganaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "hiragana.json");
         private static readonly string katakanaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "katakana.json");
+        private static JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
         public static List<KanaEntry> LoadKana(KanaType type)
         {
@@ -38,7 +39,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
             }
 
             string json = File.ReadAllText(fileName);
-            List<KanaEntry>? kanaList = JsonSerializer.Deserialize<List<KanaEntry>>(json);
+            List<KanaEntry>? kanaList = JsonSerializer.Deserialize<List<KanaEntry>>(json, jsonSerializerOptions);
 
             return kanaList is null ? throw new FileLoadException("Failed to read " + fileName + ".") : kanaList;
         }
