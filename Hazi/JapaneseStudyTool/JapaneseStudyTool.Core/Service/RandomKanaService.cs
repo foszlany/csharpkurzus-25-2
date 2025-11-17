@@ -6,47 +6,46 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Service
 {
     internal class RandomKanaService
     {
-        private readonly KanaType kanaType;
-        private readonly DifficultyLevel difficultyLevel;
-        private readonly KanaSet kanas;
+        private readonly KanaType _kanaType;
+        private readonly DifficultyLevel _difficultyLevel;
+        private readonly KanaSet _kanas;
 
         public RandomKanaService(DifficultyLevel difficultyLevel, KanaType kanaType)
         {
-            this.difficultyLevel = difficultyLevel;
-            this.kanaType = kanaType;
-            kanas = KanaLoader.LoadKana(kanaType);
+            _difficultyLevel = difficultyLevel;
+            _kanaType = kanaType;
+            _kanas = KanaLoader.LoadKana(kanaType);
 
             switch (difficultyLevel)
             {
                 case DifficultyLevel.Easy:
-                    kanas.Hiragana.RemoveAll(k => k.Type != "gojuuon");
-                    kanas.Katakana.RemoveAll(k => k.Type != "gojuuon");
+                    _kanas.Hiragana.RemoveAll(k => k.Type != "gojuuon");
+                    _kanas.Katakana.RemoveAll(k => k.Type != "gojuuon");
                     break;
 
                 case DifficultyLevel.Medium:
-                    kanas.Hiragana.RemoveAll(k => k.Type == "youon");
-                    kanas.Katakana.RemoveAll(k => k.Type == "youon");
+                    _kanas.Hiragana.RemoveAll(k => k.Type == "youon");
+                    _kanas.Katakana.RemoveAll(k => k.Type == "youon");
                     break;
             }
         }
 
         public Word GenerateRandomWord()
         {
-            Random rnd = new Random();
-            int count = difficultyLevel switch
+            int count = _difficultyLevel switch
             {
-                DifficultyLevel.Easy => rnd.Next(1, 3),
-                DifficultyLevel.Medium => rnd.Next(3, 5),
-                DifficultyLevel.Hard => rnd.Next(5, 9),
-                _ => throw new ArgumentException("Invalid DifficultyLevel: " + difficultyLevel)
+                DifficultyLevel.Easy => Random.Shared.Next(1, 3),
+                DifficultyLevel.Medium => Random.Shared.Next(3, 5),
+                DifficultyLevel.Hard => Random.Shared.Next(5, 9),
+                _ => throw new ArgumentException("Invalid DifficultyLevel: " + _difficultyLevel)
             };
 
-            List<KanaEntry> randomKanas = kanaType switch
+            List<KanaEntry> randomKanas = _kanaType switch
             {
-                KanaType.Hiragana => GetRandomKanaList(kanas.Hiragana, count, rnd),
-                KanaType.Katakana => GetRandomKanaList(kanas.Katakana, count, rnd),
-                KanaType.All => GetRandomKanaList(rnd.NextSingle() <= 0.5 ? kanas.Hiragana : kanas.Katakana, count, rnd),
-                _ => throw new ArgumentException("Invalid KanaType: " + kanaType)
+                KanaType.Hiragana => GetRandomKanaList(_kanas.Hiragana, count, Random.Shared),
+                KanaType.Katakana => GetRandomKanaList(_kanas.Katakana, count, Random.Shared),
+                KanaType.All => GetRandomKanaList(Random.Shared.NextSingle() <= 0.5 ? _kanas.Hiragana : _kanas.Katakana, count, Random.Shared),
+                _ => throw new ArgumentException("Invalid KanaType: " + _kanaType)
             };
 
             string kana = string.Concat(randomKanas.Select(k => k.Kana));
