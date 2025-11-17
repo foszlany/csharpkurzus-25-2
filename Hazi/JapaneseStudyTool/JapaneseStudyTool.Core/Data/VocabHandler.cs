@@ -2,13 +2,18 @@
 
 namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
 {
-    internal sealed class VocabLoader : FileLoader
+    internal sealed class VocabHandler : FileHandler
     {
         private static readonly string vocabPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "vocab.json");
 
-        public static List<VocabWord> LoadVocab()
+        internal static List<VocabWord> LoadVocab()
         {
             return LoadFromFile<VocabWord>(vocabPath);
+        }
+
+        internal static void SaveVocab<VocabWord>(List<VocabWord> newItems)
+        {
+            AppendToJsonFile<VocabWord>(vocabPath, newItems);
         }
     }
 }

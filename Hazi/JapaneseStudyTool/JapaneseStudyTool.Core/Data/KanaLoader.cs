@@ -3,7 +3,7 @@ using JapaneseStudyTool.JapaneseStudyTool.Core.Model;
 
 namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
 {
-    internal sealed class KanaLoader : FileLoader
+    internal sealed class KanaLoader : FileHandler
     {
         private static readonly string hiraganaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "hiragana.json");
         private static readonly string katakanaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "katakana.json");

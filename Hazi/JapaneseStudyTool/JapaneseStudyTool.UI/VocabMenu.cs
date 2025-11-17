@@ -29,7 +29,8 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
                             throw new NotImplementedException();
 
                         case VocabMenuMode.AddWords:
-                            throw new NotImplementedException();
+                            VocabAddUI.RunVocabAddUI();
+                            break;
 
                         case VocabMenuMode.Exit:
                             Console.Clear();

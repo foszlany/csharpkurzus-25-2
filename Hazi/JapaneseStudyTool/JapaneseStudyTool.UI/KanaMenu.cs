@@ -37,7 +37,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
                         Console.WriteLine("Invalid input.\n");
                     }
                 }
-                else if(args.Length == 1 && args[0].ToLower() == "exit")
+                else if(args.Length == 1 && args[0].ToLower().Equals("exit"))
                 {
                     Console.Clear();
                     return;
