@@ -1,61 +1,26 @@
 ﻿using JapaneseStudyTool.JapaneseStudyTool.Core.Enum;
 using JapaneseStudyTool.JapaneseStudyTool.Core.Model;
-using System.Text.Json;
 
 namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
 {
-    internal sealed class KanaLoader
+    internal sealed class KanaLoader : FileLoader
     {
         private static readonly string hiraganaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "hiragana.json");
         private static readonly string katakanaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "katakana.json");
-        private static readonly JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
         public static KanaSet LoadKana(KanaType type)
         {
-
-            switch (type)
+            return type switch
             {
-                case KanaType.Hiragana:
-                    return new KanaSet { Hiragana = LoadFromFile(hiraganaPath) };
-
-                case KanaType.Katakana:
-                    return new KanaSet { Katakana = LoadFromFile(katakanaPath) };
-
-                case KanaType.All:
-                    var hiragana = LoadFromFile(hiraganaPath);
-                    var katakana = LoadFromFile(katakanaPath);
-                    return new KanaSet
-                    {
-                        Hiragana = LoadFromFile(hiraganaPath),
-                        Katakana = LoadFromFile(katakanaPath)
-                    };
-
-                default:
-                    throw new ArgumentException("File does not exist for KanaType: " + type);
-            }
-        }
-
-        private static List<KanaEntry> LoadFromFile(string fileName)
-        {
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException("File " + fileName + " cannot be found.");
-            }
-
-            string json = File.ReadAllText(fileName);
-            List<KanaEntry>? kanaList = JsonSerializer.Deserialize<List<KanaEntry>>(json, jsonSerializerOptions);
-
-            return kanaList is null ? throw new FileLoadException("Failed to read " + fileName + ".") : kanaList;
-        }
-
-        private static string GetSolutionDirectory()
-        {
-            var directory = Directory.GetParent(AppContext.BaseDirectory)
-                ?.Parent
-                ?.Parent
-                ?.Parent;
-
-            return directory?.FullName ?? throw new InvalidOperationException("Could not find solution directory");
+                KanaType.Hiragana => new KanaSet { Hiragana = LoadFromFile<KanaEntry>(hiraganaPath) },
+                KanaType.Katakana => new KanaSet { Katakana = LoadFromFile<KanaEntry>(katakanaPath) },
+                KanaType.All => new KanaSet
+                {
+                    Hiragana = LoadFromFile<KanaEntry>(hiraganaPath),
+                    Katakana = LoadFromFile<KanaEntry>(katakanaPath)
+                },
+                _ => throw new ArgumentException("File does not exist for KanaType: " + type),
+            };
         }
     }
 }
