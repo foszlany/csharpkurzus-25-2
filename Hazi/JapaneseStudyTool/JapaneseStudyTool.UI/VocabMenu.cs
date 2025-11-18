@@ -26,7 +26,15 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
                     switch (mode)
                     {
                         case VocabMenuMode.Quiz:
-                            throw new NotImplementedException();
+                            try
+                            {
+                                VocabQuizUI.RunVocabQuizUI();
+                            }
+                            catch(FileNotFoundException)
+                            {
+                                Console.WriteLine("You don't have anything in your vocabulary.\n");
+                            }
+                            break;
 
                         case VocabMenuMode.AddWords:
                             VocabAddUI.RunVocabAddUI();
