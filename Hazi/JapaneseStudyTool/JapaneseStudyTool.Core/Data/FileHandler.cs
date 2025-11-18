@@ -27,29 +27,5 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
 
             return itemList is null ? throw new FileLoadException("Failed to read " + fileName + ".") : itemList;
         }
-
-        protected static void AppendToJsonFile<T>(string fileName, List<T> newItems)
-        {
-            List<T> itemList = [];
-
-            if (File.Exists(fileName))
-            {
-                string json = File.ReadAllText(fileName);
-                if(!string.IsNullOrWhiteSpace(json))
-                {
-                    List<T>? loaded = JsonSerializer.Deserialize<List<T>>(json, jsonSerializerOptions);
-
-                    if (loaded != null)
-                    {
-                        itemList = loaded;
-                    }
-                }
-            }
-
-            itemList.AddRange(newItems);
-
-            string updatedJson = JsonSerializer.Serialize(itemList, jsonSerializerOptions);
-            File.WriteAllText(fileName, updatedJson);
-        }
     }
 }

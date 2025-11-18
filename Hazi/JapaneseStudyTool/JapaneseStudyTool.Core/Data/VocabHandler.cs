@@ -1,4 +1,5 @@
 ﻿using JapaneseStudyTool.JapaneseStudyTool.Core.Model;
+using System.Text.Json;
 
 namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
 {
@@ -11,9 +12,38 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
             return LoadFromFile<VocabWord>(_vocabPath);
         }
 
-        internal static void SaveVocab<VocabWord>(List<VocabWord> newItems)
+        internal static void SaveVocab(List<VocabWord> newItems)
         {
-            AppendToJsonFile<VocabWord>(_vocabPath, newItems);
+            List<VocabWord> allItems = [];
+
+            if (File.Exists(_vocabPath))
+            {
+                string json = File.ReadAllText(_vocabPath);
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    var loaded = JsonSerializer.Deserialize<List<VocabWord>>(json, jsonSerializerOptions);
+                    if (loaded != null)
+                    {
+                        allItems = loaded;
+                    }
+                }
+            }
+
+            foreach (var newItem in newItems)
+            {
+                var index = allItems.FindIndex(item => item.Term == newItem.Term);
+                if (index >= 0)
+                {
+                    allItems[index] = newItem;
+                }
+                else
+                {
+                    allItems.Add(newItem);
+                }  
+            }
+
+            string updatedJson = JsonSerializer.Serialize(allItems, jsonSerializerOptions);
+            File.WriteAllText(_vocabPath, updatedJson);
         }
     }
 }

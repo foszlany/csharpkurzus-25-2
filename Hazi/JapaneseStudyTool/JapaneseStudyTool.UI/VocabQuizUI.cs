@@ -1,4 +1,5 @@
-﻿using JapaneseStudyTool.JapaneseStudyTool.Core.Model;
+﻿using JapaneseStudyTool.JapaneseStudyTool.Core.Data;
+using JapaneseStudyTool.JapaneseStudyTool.Core.Model;
 using JapaneseStudyTool.JapaneseStudyTool.Core.Service;
 
 namespace JapaneseStudyTool.JapaneseStudyTool.UI
@@ -45,6 +46,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
                 Console.Clear();
             }
 
+            VocabHandler.SaveVocab(vocabWords);
             Console.WriteLine("You finished the game with a score of " + score + "/" + maxScore + ".");
 
             Console.WriteLine("\nEnter a key to go back...");

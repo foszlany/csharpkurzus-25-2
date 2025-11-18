@@ -21,7 +21,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Service
             index = 0;
 
             var orderedVocab = allVocab
-                .OrderBy(v => v.Mastery)
+                .OrderBy(word => word.Mastery)
                 .ToList();
 
             var lowMasteryVocab = orderedVocab
@@ -30,13 +30,13 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Service
 
             var randomVocab = orderedVocab
                 .Skip(7)
-                .OrderBy(x => Random.Shared.Next())
+                .OrderBy(word => Random.Shared.Next())
                 .Take(3)
                 .ToList();
 
             _vocab = lowMasteryVocab
                 .Concat(randomVocab)
-                .OrderBy(x => Random.Shared.Next())
+                .OrderBy(word => Random.Shared.Next())
                 .Take(10)
                 .ToList();
         }

@@ -19,13 +19,13 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Service
             switch (difficultyLevel)
             {
                 case DifficultyLevel.Easy:
-                    _kanas.Hiragana.RemoveAll(k => k.Type != "gojuuon");
-                    _kanas.Katakana.RemoveAll(k => k.Type != "gojuuon");
+                    _kanas.Hiragana.RemoveAll(kana => kana.Type != "gojuuon");
+                    _kanas.Katakana.RemoveAll(kana => kana.Type != "gojuuon");
                     break;
 
                 case DifficultyLevel.Medium:
-                    _kanas.Hiragana.RemoveAll(k => k.Type == "youon");
-                    _kanas.Katakana.RemoveAll(k => k.Type == "youon");
+                    _kanas.Hiragana.RemoveAll(kana => kana.Type == "youon");
+                    _kanas.Katakana.RemoveAll(kana => kana.Type == "youon");
                     break;
             }
         }
@@ -48,15 +48,15 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Service
                 _ => throw new ArgumentException("Invalid KanaType: " + _kanaType)
             };
 
-            string kana = string.Concat(randomKanas.Select(k => k.Kana));
-            string romaji = string.Concat(randomKanas.Select(k => k.Romaji));
+            string kana = string.Concat(randomKanas.Select(kana => kana.Kana));
+            string romaji = string.Concat(randomKanas.Select(kana => kana.Romaji));
 
             return new Word(kana, romaji);
         }
 
         private List<KanaEntry> GetRandomKanaList(List<KanaEntry> source, int count, Random rnd)
         {
-            return source.OrderBy(k => rnd.Next()).Take(count).ToList();
+            return source.OrderBy(kana => rnd.Next()).Take(count).ToList();
         }
     }
 }
