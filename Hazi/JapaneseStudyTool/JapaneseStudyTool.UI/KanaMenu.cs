@@ -20,8 +20,14 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
             Console.Write(">");
             string expression = Console.ReadLine() ?? string.Empty;
 
+            return EvaluateUserExpression(expression);
+        }
+
+        internal bool EvaluateUserExpression(string expression)
+        {
             string[] args = expression.Split(" ");
-            if(args.Length == 2)
+
+            if (args.Length == 2)
             {
                 if (Enum.TryParse<DifficultyLevel>(args[0], ignoreCase: true, out var difficultyLevel) &&
                     Enum.TryParse<KanaType>(args[1], ignoreCase: true, out var kanaType))
@@ -34,7 +40,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
                     Console.WriteLine("Invalid input.\n");
                 }
             }
-            else if(args.Length == 1 && args[0].ToLower().Equals("exit"))
+            else if (args.Length == 1 && args[0].ToLower().Equals("exit"))
             {
                 Console.Clear();
                 return true;

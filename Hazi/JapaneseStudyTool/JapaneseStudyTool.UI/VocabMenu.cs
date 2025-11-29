@@ -16,6 +16,11 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
             Console.Write(">");
             string expression = Console.ReadLine() ?? string.Empty;
 
+            return EvaluateUserExpression(expression);
+        }
+
+        internal bool EvaluateUserExpression(string expression)
+        {
             if (Int32.TryParse(expression, out int modeInt) && Enum.IsDefined(typeof(VocabMenuMode), modeInt))
             {
                 VocabMenuMode mode = (VocabMenuMode)modeInt;
@@ -27,7 +32,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
                         {
                             VocabQuizUI.RunVocabQuizUI();
                         }
-                        catch(FileNotFoundException)
+                        catch (FileNotFoundException)
                         {
                             Console.WriteLine("You don't have anything in your vocabulary.\n");
                         }
