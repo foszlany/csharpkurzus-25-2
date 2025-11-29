@@ -1,56 +1,54 @@
 ﻿using JapaneseStudyTool.JapaneseStudyTool.Core.Enum;
+using JapaneseStudyTool.JapaneseStudyTool.Core.Interface;
 
 namespace JapaneseStudyTool.JapaneseStudyTool.UI
 {
-    internal sealed class VocabMenu
+    internal sealed class VocabMenu : IMenu
     {
-        internal static void RunVocabMenu()
+        public bool DisplayMenu()
         {
-            Console.Clear();
+            Console.WriteLine("Welcome to Vocabulary practice!");
+            Console.WriteLine("With this module, you can enter words and quiz yourself!\n");
+            Console.WriteLine("[1] Quiz");
+            Console.WriteLine("[2] Enter words");
+            Console.WriteLine("[3] Exit");
 
-            while (true)
+            Console.Write(">");
+            string expression = Console.ReadLine() ?? string.Empty;
+
+            if (Int32.TryParse(expression, out int modeInt) && Enum.IsDefined(typeof(VocabMenuMode), modeInt))
             {
-                Console.WriteLine("Welcome to Vocabulary practice!");
-                Console.WriteLine("With this module, you can enter words and quiz yourself!\n");
-                Console.WriteLine("[1] Quiz");
-                Console.WriteLine("[2] Enter words");
-                Console.WriteLine("[3] Exit");
+                VocabMenuMode mode = (VocabMenuMode)modeInt;
 
-                Console.Write(">");
-                string expression = Console.ReadLine() ?? string.Empty;
-
-                if (Int32.TryParse(expression, out int modeInt) && Enum.IsDefined(typeof(VocabMenuMode), modeInt))
+                switch (mode)
                 {
-                    VocabMenuMode mode = (VocabMenuMode)modeInt;
+                    case VocabMenuMode.Quiz:
+                        try
+                        {
+                            VocabQuizUI.RunVocabQuizUI();
+                        }
+                        catch(FileNotFoundException)
+                        {
+                            Console.WriteLine("You don't have anything in your vocabulary.\n");
+                        }
+                        break;
 
-                    switch (mode)
-                    {
-                        case VocabMenuMode.Quiz:
-                            try
-                            {
-                                VocabQuizUI.RunVocabQuizUI();
-                            }
-                            catch(FileNotFoundException)
-                            {
-                                Console.WriteLine("You don't have anything in your vocabulary.\n");
-                            }
-                            break;
+                    case VocabMenuMode.AddWords:
+                        VocabAddUI.RunVocabAddUI();
+                        break;
 
-                        case VocabMenuMode.AddWords:
-                            VocabAddUI.RunVocabAddUI();
-                            break;
-
-                        case VocabMenuMode.Exit:
-                            Console.Clear();
-                            return;
-                    }
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Invalid input.\n");
+                    case VocabMenuMode.Exit:
+                        Console.Clear();
+                        return true;
                 }
             }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid input.\n");
+            }
+
+            return false;
         }
     }
 }

@@ -1,48 +1,47 @@
 ﻿using JapaneseStudyTool.JapaneseStudyTool.Core.Enum;
+using JapaneseStudyTool.JapaneseStudyTool.Core.Interface;
+using JapaneseStudyTool.JapaneseStudyTool.Core.Utilitiies;
 
 namespace JapaneseStudyTool.JapaneseStudyTool.UI
 {
-    internal sealed class MainMenu
+    internal sealed class MainMenu : IMenu
     {
-        internal static void RunMainMenu()
+        public bool DisplayMenu()
         {
-            Console.Clear();
+            Console.WriteLine("Welcome to JapaneseStudyTool! Select your desired mode.");
+            Console.WriteLine("[1] Kana practice");
+            Console.WriteLine("[2] Vocabulary practice");
+            Console.WriteLine("[3] Exit");
 
-            while (true)
+            Console.Write(">");
+            string expression = Console.ReadLine() ?? string.Empty;
+
+            if (Int32.TryParse(expression, out int modeInt) && Enum.IsDefined(typeof(MainMenuMode), modeInt))
             {
-                Console.WriteLine("Welcome to JapaneseStudyTool! Select your desired mode.");
-                Console.WriteLine("[1] Kana practice");
-                Console.WriteLine("[2] Vocabulary practice");
-                Console.WriteLine("[3] Exit");
+                MainMenuMode mode = (MainMenuMode)modeInt;
 
-                Console.Write(">");
-                string expression = Console.ReadLine() ?? string.Empty;
-
-                if (Int32.TryParse(expression, out int modeInt) && Enum.IsDefined(typeof(MainMenuMode), modeInt))
+                switch (mode)
                 {
-                    MainMenuMode mode = (MainMenuMode)modeInt;
+                    case MainMenuMode.KanaPractice:
+                        MenuRunner.RunMenu(new KanaMenu());
+                        break;
 
-                    switch (mode)
-                    {
-                        case MainMenuMode.KanaPractice:
-                            KanaMenu.RunKanaMenu();
-                            break;
+                    case MainMenuMode.VocabularyPractice:
+                        MenuRunner.RunMenu(new VocabMenu());
+                        break;
 
-                        case MainMenuMode.VocabularyPractice:
-                            VocabMenu.RunVocabMenu();
-                            break;
-
-                        case MainMenuMode.Exit:
-                            Environment.Exit(0);
-                            return;
-                    }
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Invalid input.\n");
+                    case MainMenuMode.Exit:
+                        Environment.Exit(0);
+                        return true;
                 }
             }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid input.\n");
+            }
+
+            return false;
         }
     }
 }
