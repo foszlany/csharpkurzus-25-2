@@ -1,6 +1,6 @@
 ﻿namespace JapaneseStudyTool.JapaneseStudyTool.Core.Enum
 {
-    enum VocabMenuMode
+    public enum VocabMenuMode
     {
         Quiz = 1,
         AddWords = 2,

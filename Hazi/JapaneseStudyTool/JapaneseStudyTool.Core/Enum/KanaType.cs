@@ -1,6 +1,6 @@
 ﻿namespace JapaneseStudyTool.JapaneseStudyTool.Core.Enum
 {
-    enum KanaType
+    public enum KanaType
     {
         Hiragana = 1,
         Katakana = 2,

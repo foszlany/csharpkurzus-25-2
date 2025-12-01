@@ -1,6 +1,6 @@
 ﻿namespace JapaneseStudyTool.JapaneseStudyTool.Core.Enum
 {
-    enum MainMenuMode
+    public enum MainMenuMode
     {
         KanaPractice = 1,
         VocabularyPractice = 2,
