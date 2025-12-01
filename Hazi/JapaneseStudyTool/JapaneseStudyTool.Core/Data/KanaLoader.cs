@@ -5,8 +5,8 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
 {
     internal sealed class KanaLoader : FileHandler
     {
-        private static readonly string _hiraganaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "hiragana.json");
-        private static readonly string _katakanaPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "katakana.json");
+        private static readonly string _hiraganaPath = Path.Combine(AppContext.BaseDirectory, "JapaneseStudyTool.Data", "hiragana.json");
+        private static readonly string _katakanaPath = Path.Combine(AppContext.BaseDirectory, "JapaneseStudyTool.Data", "katakana.json");
 
         public static KanaSet LoadKana(KanaType type)
         {

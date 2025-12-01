@@ -6,7 +6,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
 {
     internal sealed class KanaPracticeUI
     {
-        private static readonly int maxScore = 10;
+        private static readonly int _maxScore = 10;
 
         internal static void RunKanaPracticeUI(DifficultyLevel difficultyLevel, KanaType kanaType)
         {
@@ -15,7 +15,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
             RandomKanaService randomKanaService = new RandomKanaService(difficultyLevel, kanaType);
             int score = 0;
 
-            for (int i = 0; i < maxScore; i++)
+            for (int i = 0; i < _maxScore; i++)
             {
                 Word randomKanaWord = randomKanaService.GenerateRandomWord();
 
@@ -39,7 +39,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.UI
                 Console.Clear();
             }
 
-            Console.WriteLine("You finished the game with a score of " + score + "/" + maxScore + ".");
+            Console.WriteLine("You finished the game with a score of " + score + "/" + _maxScore + ".");
 
             Console.WriteLine("\nEnter a key to go back...");
             Console.ReadKey();

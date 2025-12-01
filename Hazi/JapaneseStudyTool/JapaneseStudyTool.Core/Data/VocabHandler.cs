@@ -5,7 +5,7 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
 {
     internal sealed class VocabHandler : FileHandler
     {
-        private static readonly string _vocabPath = Path.Combine(GetSolutionDirectory(), "JapaneseStudyTool.Data", "vocab.json");
+        private static readonly string _vocabPath = Path.Combine(AppContext.BaseDirectory, "JapaneseStudyTool.Data", "vocab.json");
 
         internal static List<VocabWord> LoadVocab()
         {

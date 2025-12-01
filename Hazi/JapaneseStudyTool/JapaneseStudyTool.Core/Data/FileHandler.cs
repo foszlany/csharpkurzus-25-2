@@ -5,15 +5,6 @@ namespace JapaneseStudyTool.JapaneseStudyTool.Core.Data
     internal abstract class FileHandler
     {
         protected static readonly JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-        protected static string GetSolutionDirectory()
-        {
-            var directory = Directory.GetParent(AppContext.BaseDirectory)
-                ?.Parent
-                ?.Parent
-                ?.Parent;
-
-            return directory?.FullName ?? throw new InvalidOperationException("Could not find solution directory");
-        }
 
         protected static List<T> LoadFromFile<T>(string fileName)
         {
